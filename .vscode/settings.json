@@ -1,0 +1,25 @@
+{
+  "java.project.sourcePaths": [
+    "src"
+  ],
+  "java.project.outputPath": "/tmp/sistemagestaoagua-vscode-bin",
+  "java.project.referencedLibraries": [
+    "lib/flatlaf-3.6.jar",
+    "lib/ikonli-core-12.3.1.jar",
+    "lib/ikonli-fontawesome5-pack-12.3.1.jar",
+    "lib/ikonli-materialdesign2-pack-12.3.1.jar",
+    "lib/ikonli-swing-12.3.1.jar",
+    "lib/ojdbc11.jar"
+  ],
+
+  "java.format.settings.url": "file:///home/neyal_s/Desktop/Stuff/SistemaGestaoAgua/.vscode/eclipse-formatter.xml",
+  "java.format.settings.profile": "My_Profile",
+
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  }
+}

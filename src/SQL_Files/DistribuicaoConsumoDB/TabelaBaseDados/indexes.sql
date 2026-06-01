@@ -1,0 +1,22 @@
+SET ECHO OFF;
+
+CREATE INDEX ix_pd_recurso ON Ponto_Distribuicao (codigo_rh);
+CREATE INDEX ix_pd_comite ON Ponto_Distribuicao (cod_comite_responsavel);
+CREATE INDEX ix_pd_equipe ON Ponto_Distribuicao (equipe_id);
+CREATE INDEX ix_pd_estado ON Ponto_Distribuicao (estado_operacional_pd, codigo_pd);
+CREATE INDEX ix_pd_loc_upper ON Ponto_Distribuicao (UPPER(localizacao_pd));
+CREATE INDEX ix_pd_tipo_upper ON Ponto_Distribuicao (UPPER(tipo_infraestrutura_pd));
+CREATE INDEX ix_pd_fonte_upper ON Ponto_Distribuicao (UPPER(fonte_abastecimento_pd));
+CREATE INDEX ix_pd_estado_upper ON Ponto_Distribuicao (UPPER(estado_operacional_pd));
+CREATE INDEX ix_rc_pd_data ON Registro_Consumo (codigo_pd, data_hora_rc);
+CREATE INDEX ix_rc_fb_data ON Registro_Consumo (codigo_fb, data_hora_rc);
+CREATE INDEX ix_rc_cota_fb ON Registro_Consumo (codigo_cota, codigo_fb);
+CREATE INDEX ix_ret_pend_estado ON Retirada_Agua_Pendente (estado_pendente);
+CREATE INDEX ix_ret_pend_data ON Retirada_Agua_Pendente (data_pedido);
+CREATE INDEX ix_ret_pend_fb_cota_estado ON Retirada_Agua_Pendente (codigo_fb, codigo_cota, estado_pendente);
+CREATE INDEX ix_ret_pend_pd ON Retirada_Agua_Pendente (codigo_pd);
+CREATE INDEX ix_hm_pd_data ON Historico_Manutencao (codigo_pd, data_manutencao);
+CREATE INDEX ix_hm_eq_data ON Historico_Manutencao (equipe_id, data_manutencao);
+CREATE INDEX ix_ha_pd_estado ON Historico_Abastecimento (codigo_pd, estado_abastecimento);
+CREATE INDEX ix_ha_rh_estado ON Historico_Abastecimento (codigo_rh, estado_abastecimento);
+CREATE INDEX ix_ha_estado_data ON Historico_Abastecimento (estado_abastecimento, data_inicio);

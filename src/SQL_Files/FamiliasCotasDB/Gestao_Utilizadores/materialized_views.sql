@@ -1,0 +1,17 @@
+SET ECHO OFF;
+
+BEGIN EXECUTE IMMEDIATE 'DROP SNAPSHOT MV_FUNCIONARIO_LOCAL'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+
+CREATE SNAPSHOT MV_FUNCIONARIO_LOCAL
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT
+    cod_funcionario,
+    codigo_no,
+    nome_funcionario,
+    username_oracle,
+    estado_funcionario
+FROM Funcionario
+WHERE codigo_no = 2;

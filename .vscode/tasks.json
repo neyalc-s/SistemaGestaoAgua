@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run sistemagestaoagua",
+      "type": "shell",
+      "command": "rm -rf /tmp/sistemagestaoagua-vscode-run && mkdir -p /tmp/sistemagestaoagua-vscode-run && javac -d /tmp/sistemagestaoagua-vscode-run -cp 'src:lib/ojdbc11.jar:lib/flatlaf-3.6.jar:lib/ikonli-core-12.3.1.jar:lib/ikonli-swing-12.3.1.jar:lib/ikonli-fontawesome5-pack-12.3.1.jar:lib/ikonli-materialdesign2-pack-12.3.1.jar' $(find src -name '*.java') && java -cp '/tmp/sistemagestaoagua-vscode-run:lib/ojdbc11.jar:lib/flatlaf-3.6.jar:lib/ikonli-core-12.3.1.jar:lib/ikonli-swing-12.3.1.jar:lib/ikonli-fontawesome5-pack-12.3.1.jar:lib/ikonli-materialdesign2-pack-12.3.1.jar' App.Executable",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$javac",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+SET ECHO OFF;
+
+SET DEFINE OFF;
+
+BEGIN EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM MV_ALERTA_QUALIDADE_AGUA_ADMIN'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM MV_AUD_SESSOES_FAMILIAS'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM MV_AUD_SESSOES_DISTRIBUICAO'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM MV_AUD_SESSOES_TRANSFERENCIAS'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM MV_AUD_SESSOES_EQUIPES'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+
+BEGIN EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW MV_ALERTA_QUALIDADE_AGUA_ADMIN'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW MV_AUD_SESSOES_FAMILIAS'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW MV_AUD_SESSOES_DISTRIBUICAO'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW MV_AUD_SESSOES_TRANSFERENCIAS'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+BEGIN EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW MV_AUD_SESSOES_EQUIPES'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
+
+CREATE MATERIALIZED VIEW MV_ALERTA_QUALIDADE_AGUA_ADMIN
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT codigo_alerta,
+       codigo_medicao,
+       codigo_rh,
+       mensagem_alerta,
+       data_alerta
+  FROM TRANS_OWNER.Alerta_Qualidade_Agua@DBLINK_TRANSF_REC;
+
+CREATE MATERIALIZED VIEW MV_AUD_SESSOES_FAMILIAS
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT s.codigo_sessao,
+       s.cod_funcionario,
+       f.username_oracle,
+       f.nome_funcionario,
+       s.codigo_no,
+       'FamiliasCotasDB' AS nome_no,
+       s.data_inicio,
+       s.data_fim,
+       s.estado_sessao,
+       s.modo_login
+  FROM FAM_OWNER.SESSAO_FUNCIONARIO_LOCAL@DBLINK_FAM_COTAS s
+  LEFT JOIN FUNCIONARIO f
+    ON f.cod_funcionario = s.cod_funcionario;
+
+CREATE MATERIALIZED VIEW MV_AUD_SESSOES_DISTRIBUICAO
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT s.codigo_sessao,
+       s.cod_funcionario,
+       f.username_oracle,
+       f.nome_funcionario,
+       s.codigo_no,
+       'DistribuicaoConsumoDB' AS nome_no,
+       s.data_inicio,
+       s.data_fim,
+       s.estado_sessao,
+       s.modo_login
+  FROM DIST_OWNER.SESSAO_FUNCIONARIO_LOCAL@DBLINK_DIST_CONS s
+  LEFT JOIN FUNCIONARIO f
+    ON f.cod_funcionario = s.cod_funcionario;
+
+CREATE MATERIALIZED VIEW MV_AUD_SESSOES_TRANSFERENCIAS
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT s.codigo_sessao,
+       s.cod_funcionario,
+       f.username_oracle,
+       f.nome_funcionario,
+       s.codigo_no,
+       'TransferenciasRecursosDB' AS nome_no,
+       s.data_inicio,
+       s.data_fim,
+       s.estado_sessao,
+       s.modo_login
+  FROM TRANS_OWNER.SESSAO_FUNCIONARIO_LOCAL@DBLINK_TRANSF_REC s
+  LEFT JOIN FUNCIONARIO f
+    ON f.cod_funcionario = s.cod_funcionario;
+
+CREATE MATERIALIZED VIEW MV_AUD_SESSOES_EQUIPES
+BUILD IMMEDIATE
+REFRESH COMPLETE ON DEMAND
+AS
+SELECT s.codigo_sessao,
+       s.cod_funcionario,
+       f.username_oracle,
+       f.nome_funcionario,
+       s.codigo_no,
+       'EquipesGestaoDB' AS nome_no,
+       s.data_inicio,
+       s.data_fim,
+       s.estado_sessao,
+       s.modo_login
+  FROM EQ_OWNER.SESSAO_FUNCIONARIO_LOCAL@DBLINK_EQ_GESTAO s
+  LEFT JOIN FUNCIONARIO f
+    ON f.cod_funcionario = s.cod_funcionario;

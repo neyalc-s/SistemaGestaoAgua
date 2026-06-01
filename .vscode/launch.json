@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Executable",
+      "request": "launch",
+      "mainClass": "App.Executable",
+      "cwd": "${workspaceFolder}",
+      "sourcePaths": [
+        "${workspaceFolder}/src"
+      ],
+      "classPaths": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/lib/flatlaf-3.6.jar",
+        "${workspaceFolder}/lib/ikonli-core-12.3.1.jar",
+        "${workspaceFolder}/lib/ikonli-swing-12.3.1.jar",
+        "${workspaceFolder}/lib/ikonli-fontawesome5-pack-12.3.1.jar",
+        "${workspaceFolder}/lib/ikonli-materialdesign2-pack-12.3.1.jar",
+        "${workspaceFolder}/lib/ojdbc11.jar"
+      ]
+    }
+  ]
+}

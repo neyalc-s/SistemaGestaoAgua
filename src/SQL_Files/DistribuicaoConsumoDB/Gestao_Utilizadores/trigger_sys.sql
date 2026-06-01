@@ -1,0 +1,24 @@
+SET ECHO OFF;
+
+-- Fecha sessoes funcionais que ficaram abertas antes do arranque.
+
+SET DEFINE OFF;
+
+CREATE OR REPLACE TRIGGER TRG_DIST_SYS_STARTUP_SESS
+AFTER STARTUP ON DATABASE
+DECLARE
+    PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+    UPDATE DIST_OWNER.SESSAO_FUNCIONARIO_LOCAL
+       SET estado_sessao = 'EXPIRADA',
+           data_fim = NVL(data_fim, SYSDATE)
+     WHERE estado_sessao = 'ABERTA';
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+END;
+/
+
+SET ECHO OFF;
